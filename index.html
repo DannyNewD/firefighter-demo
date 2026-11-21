@@ -1,133 +1,199 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="uk">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | FirefighterGame</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Гасимо як уміємо — демо для Flame and Blame Dev Contest</title>
+    <meta name="description" content="Пожежники від першої особи: виклик, спорядження, пожежа й «Акт про пожежу». Демо для Flame and Blame Dev Contest. Автор — Данило Новосьолов.">
+    <link rel="icon" type="image/svg+xml" href="TemplateData/favicon.svg">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1280 height=720 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+    <div class="backdrop" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <img class="brand-mark" src="TemplateData/favicon.svg" alt="">
+      <div class="brand">
+        <h1>Гасимо як уміємо</h1>
+        <p>Демо для <b>«Flame and Blame Dev Contest»</b>: гасиш пожежу як умієш. Автор — <b>Данило Новосьолов</b>.</p>
+      </div>
+      <nav class="actions">
+        <button id="fullscreen-button" class="btn btn-fire" type="button" disabled title="Доступно, щойно гра завантажиться">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+          На весь екран
+        </button>
+      </nav>
+    </header>
+
+    <main class="stage">
+      <section class="play">
+        <div id="unity-container" class="frame">
+          <canvas id="unity-canvas" width=1280 height=720 tabindex="-1"></canvas>
+
+          <div id="loader" class="loader" role="status" aria-live="polite">
+            <h2 class="loader-title">Гасимо як уміємо</h2>
+            <div class="loader-status"><span id="loader-label">Завантаження гри…</span><span id="loader-percent">0 %</span></div>
+            <div class="bar"><div id="loader-fill" class="bar-fill"></div></div>
+            <p id="loader-tip" class="loader-tip"></p>
+            <p id="loader-error" class="loader-error"></p>
+          </div>
+
+          <div id="unity-warning" class="banners" aria-live="polite"></div>
         </div>
-      </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-logo-title-footer"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">FirefighterGame</div>
-      </div>
-    </div>
+        <p class="play-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 3v6"/></svg>
+          Клацни по грі, щоб захопити мишу · <kbd class="wide">Esc</kbd> — пауза
+        </p>
+      </section>
+
+      <aside class="controls" aria-label="Керування">
+        <h2>Керування</h2>
+
+        <h3>Пішки</h3>
+        <ul class="flow">
+          <li><span class="k"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span class="d">ходити <i>(або стрілки)</i></span></li>
+          <li><span class="k"><kbd class="wide">Миша</kbd></span><span class="d">дивитися</span></li>
+          <li><span class="k"><kbd class="wide">Shift</kbd></span><span class="d">бігти</span></li>
+          <li><span class="k"><kbd class="wide">Пробіл</kbd></span><span class="d">стрибок</span></li>
+          <li><span class="k"><kbd>C</kbd></span><span class="d">присісти <i>(тримай)</i></span></li>
+        </ul>
+
+        <h3>Руки й інструменти</h3>
+        <ul>
+          <li><span class="k"><kbd>E</kbd></span><span class="d">взяти / покласти / взаємодіяти</span></li>
+          <li><span class="k"><kbd class="wide">ЛКМ</kbd></span><span class="d">кинути предмет; з інструментом — працювати ним <i>(шланг — лити воду)</i></span></li>
+          <li><span class="k"><kbd>E</kbd></span><span class="d">руки порожні: тримай або часто тисни — вибити двері ногою</span></li>
+          <li><span class="k"><kbd>R</kbd></span><span class="d">підтягнути рукав шланга</span></li>
+          <li><span class="k"><kbd>Q</kbd></span><span class="d">тримай — змотати рукав</span></li>
+          <li><span class="k"><kbd>W</kbd><kbd>S</kbd></span><span class="d">на драбині вгору / вниз; нагорі <kbd>E</kbd> — у вікно</span></li>
+        </ul>
+
+        <h3>Депо й виклик</h3>
+        <ul>
+          <li><span class="k"><kbd>E</kbd></span><span class="d">біля ПК — прийняти виклик; <kbd class="wide">Пробіл</kbd> — назад</span></li>
+          <li><span class="k"><kbd>E</kbd></span><span class="d">у дорозі — приїхати швидше</span></li>
+          <li><span class="k"><kbd>E</kbd></span><span class="d">біля машини на місії — завершити виклик</span></li>
+          <li><span class="k"><kbd>E</kbd><kbd class="wide">Enter</kbd></span><span class="d">далі після «Акту про пожежу»</span></li>
+        </ul>
+
+        <h3>На паузі (<kbd class="wide">Esc</kbd>)</h3>
+        <ul class="flow">
+          <li><span class="k"><kbd>−</kbd><kbd>+</kbd></span><span class="d">чутливість миші</span></li>
+          <li><span class="k"><kbd>H</kbd></span><span class="d">будинок для викликів</span></li>
+          <li><span class="k"><kbd>B</kbd></span><span class="d">боти: увімкнути / вимкнути</span></li>
+          <li><span class="k"><kbd>P</kbd></span><span class="d">полігон / назад у депо</span></li>
+        </ul>
+
+        <h3>Полігон і тест</h3>
+        <ul>
+          <li><span class="k"><kbd>F2</kbd></span><span class="d">пульт полігону: <kbd>1</kbd>–<kbd>7</kbd> дії, <kbd>0</kbd> — у депо</span></li>
+          <li><span class="k"><kbd>F3</kbd></span><span class="d">лічильник FPS</span></li>
+        </ul>
+      </aside>
+    </main>
+
     <script>
       var canvas = document.querySelector("#unity-canvas");
+      var loader = document.querySelector("#loader");
+      var loaderFill = document.querySelector("#loader-fill");
+      var loaderPercent = document.querySelector("#loader-percent");
+      var loaderLabel = document.querySelector("#loader-label");
+      var fullscreenButton = document.querySelector("#fullscreen-button");
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
+      // Підказки на екрані завантаження — справжні тексти з гри (HudConfig, StationConfig, MissionConfig, LadderConfig).
+      var tips = [
+        "Двері можна вибити сокирою або ногою <b>[E]</b>",
+        "Візьми кота <b>[E]</b> або посади в переноску — і неси в зелену зону біля машини",
+        "<b>[R]</b> — підтягнути рукав",
+        "<b>[ЛКМ]</b> — лити воду",
+        "Бери речі зі стелажів і неси до машини: подивись на неї з предметом у руках — <b>[E]</b> покласти",
+        "Врятуйте всіх і загасіть вогонь. Поїхати можна будь-коли — біля машини, <b>[E]</b>",
+        "Ти на драбині: <b>[W]</b> — вгору, <b>[S]</b> — вниз. Нагорі <b>[E]</b> — у вікно"
+      ];
+      var tipEl = document.querySelector("#loader-tip");
+      var tipIndex = Math.floor(Math.random() * tips.length);
+      function showTip() {
+        tipEl.innerHTML = tips[tipIndex % tips.length];
+        tipIndex++;
+      }
+      showTip();
+      var tipTimer = setInterval(showTip, 4500);
+
+      // Банер Unity: тимчасове повідомлення на кілька секунд або постійне, якщо type=='error'.
       function unityShowBanner(msg, type) {
         var warningBanner = document.querySelector("#unity-warning");
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
         var div = document.createElement('div');
+        div.className = 'banner' + (type ? ' ' + type : '');
         div.innerHTML = msg;
         warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+        if (type != 'error') {
           setTimeout(function() {
             warningBanner.removeChild(div);
-            updateBannerVisibility();
           }, 5000);
         }
-        updateBannerVisibility();
       }
 
+      function showLoadError(message) {
+        clearInterval(tipTimer);
+        loader.classList.add("is-error");
+        loaderLabel.textContent = "Гра не запустилась";
+        document.querySelector("#loader-error").textContent = String(message);
+      }
+
+      // Версія білда = короткий хеш коміту гри, з якого зібрано Build/. Міняти при кожному заливі нового білда:
+      // імена файлів Unity щоразу однакові, а з ?v=… браузер (і кеш Unity в IndexedDB) не змішає старі файли з новими.
+      var BUILD_VERSION = "5774907";
+
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/WebGL.loader.js";
+      function buildFile(name) { return buildUrl + "/" + name + "?v=" + BUILD_VERSION; }
+      var loaderUrl = buildFile("WebGL.loader.js");
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/WebGL.data.unityweb",
-        frameworkUrl: buildUrl + "/WebGL.framework.js.unityweb",
-        codeUrl: buildUrl + "/WebGL.wasm.unityweb",
+        dataUrl: buildFile("WebGL.data.unityweb"),
+        frameworkUrl: buildFile("WebGL.framework.js.unityweb"),
+        codeUrl: buildFile("WebGL.wasm.unityweb"),
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DannyNewD",
         productName: "FirefighterGame",
         productVersion: "1.0",
         showBanner: unityShowBanner,
-        // errorHandler: function(err, url, line) {
-        //    alert("error " + err + " occurred at line " + line);
-        //    // Return 'true' if you handled this error and don't want Unity
-        //    // to process it further, 'false' otherwise.
-        //    return true;
-        // },
       };
 
-      // By default, Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
-      // If you would like all file writes inside Unity Application.persistentDataPath
-      // directory to automatically persist so that the contents are remembered when
-      // the user revisits the site the next time, uncomment the following line:
-      // config.autoSyncPersistentDataPath = true;
-      // This autosyncing is currently not the default behavior to avoid regressing
-      // existing user projects that might rely on the earlier manual
-      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
-      // expected to change.
-
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-
+        // Мобільні — як у шаблоні Unity: полотно на всю клієнтську область.
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
-        document.querySelector("#unity-container").className = "unity-mobile";
-        canvas.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "1280px";
-        canvas.style.height = "720px";
+        document.body.classList.add("is-mobile");
       }
-
-      document.querySelector("#unity-loading-bar").style.display = "block";
 
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
-          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-
-              }).catch((message) => {
-                alert(message);
-              });
-            };
+          var pct = Math.round(100 * progress);
+          loaderFill.style.width = pct + "%";
+          loaderPercent.textContent = pct + " %";
+          if (progress >= 0.9) loaderLabel.textContent = "Запускаємо двигун…";
+        }).then((unityInstance) => {
+          clearInterval(tipTimer);
+          loaderFill.style.width = "100%";
+          loaderPercent.textContent = "100 %";
+          loader.classList.add("is-done");
+          fullscreenButton.disabled = false;
+          fullscreenButton.title = "";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+          window.unityInstance = unityInstance;
+        }).catch((message) => {
+          showLoadError(message);
+        });
+      };
+      script.onerror = () => showLoadError("Не вдалося завантажити " + loaderUrl);
 
       document.body.appendChild(script);
-
     </script>
   </body>
 </html>
