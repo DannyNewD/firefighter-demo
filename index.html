@@ -42,7 +42,7 @@
         </div>
         <p class="play-hint">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 3v6"/></svg>
-          Клацни по грі, щоб захопити мишу · <kbd class="wide">Esc</kbd> — пауза
+          Клацни по грі, щоб захопити мишу · <kbd>M</kbd> або <kbd class="wide">Esc</kbd> — пауза й меню
         </p>
       </section>
 
@@ -76,8 +76,9 @@
           <li><span class="k"><kbd>E</kbd><kbd class="wide">Enter</kbd></span><span class="d">далі після «Акту про пожежу»</span></li>
         </ul>
 
-        <h3>На паузі (<kbd class="wide">Esc</kbd>)</h3>
+        <h3>На паузі (<kbd>M</kbd> або <kbd class="wide">Esc</kbd>)</h3>
         <ul class="flow">
+          <li><span class="k"><kbd>M</kbd></span><span class="d">назад у гру <i>(або клік)</i></span></li>
           <li><span class="k"><kbd>−</kbd><kbd>+</kbd></span><span class="d">чутливість миші</span></li>
           <li><span class="k"><kbd>H</kbd></span><span class="d">будинок для викликів</span></li>
           <li><span class="k"><kbd>B</kbd></span><span class="d">боти: увімкнути / вимкнути</span></li>
@@ -142,7 +143,7 @@
 
       // Версія білда = короткий хеш коміту гри, з якого зібрано Build/. Міняти при кожному заливі нового білда:
       // імена файлів Unity щоразу однакові, а з ?v=… браузер (і кеш Unity в IndexedDB) не змішає старі файли з новими.
-      var BUILD_VERSION = "5774907";
+      var BUILD_VERSION = "a7b22bb";
 
       var buildUrl = "Build";
       function buildFile(name) { return buildUrl + "/" + name + "?v=" + BUILD_VERSION; }
